@@ -1,9 +1,10 @@
 const { Client,GatewayIntentBits, Collection, EmbedBuilder, PermissionsBitField, Permissions } = require('discord.js');
 const {token} = require('./config.json');
+const fetch = require('node-fetch')
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
 
-const prefix = '<';
+const prefix = '/';
 
 // When the client is ready, run this code (only once)
 client.once('ready', () => {
@@ -26,10 +27,17 @@ client.on("messageCreate", (message) => {
 	//COMMANDS
 
 	if (command === 'kanye') {
-		message.channel.send("YOU DON'T HAVE THE ANSWERS")
+		message.channel.send('what the fuck does she know about cameras')
 	}
-
 })
 
+fetch('https://api.kanye.rest', {
+  method: 'POST',
+  body: 'a=1'
+})
+  .then(res => res.json())
+  .then((data) => console.log(data))
+  .catch(err => console.log(err));
+
 // Login to Discord with your client's token
-client.login(token);  
+client.login(token);
