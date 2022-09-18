@@ -27,17 +27,15 @@ client.on("messageCreate", (message) => {
 	//COMMANDS
 
 	if (command === 'kanye') {
-		message.channel.send('what the fuck does she know about cameras')
+		fetch('https://api.kanye.rest', {
+  method: 'POST',
+  body: 'a=1'})
+  .then(res => res.json())
+  .then((data) => message.channel.send(data.quote))
+  .catch(err => console.log(err)
+)
 	}
 })
-
-fetch('https://api.kanye.rest', {
-  method: 'POST',
-  body: 'a=1'
-})
-  .then(res => res.json())
-  .then((data) => console.log(data))
-  .catch(err => console.log(err));
 
 // Login to Discord with your client's token
 client.login(token);
