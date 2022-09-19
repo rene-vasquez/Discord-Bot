@@ -1,5 +1,6 @@
 const { Client,GatewayIntentBits, Collection, EmbedBuilder, PermissionsBitField, Permissions } = require('discord.js');
 const {token} = require('./config.json');
+const {apikey} = require('./config.json');
 const fetch = require('node-fetch')
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
@@ -10,6 +11,16 @@ const prefix = '/';
 client.once('ready', () => {
 	console.log('Ready!');
 });
+
+let links = [
+	"https://tenor.com/qu1t.gif",
+	"https://tenor.com/bQhz3.gif",
+	"https://tenor.com/bOc8n.gif",
+	"https://tenor.com/bchtu.gif",
+	"https://tenor.com/bPlNc.gif"
+]
+
+let index = Math.floor(Math.random() * links.length);
 
 client.on("messageCreate", (message) => {
 
@@ -28,12 +39,11 @@ client.on("messageCreate", (message) => {
 
 	if (command === 'kanye') {
 		fetch('https://api.kanye.rest', {
-  method: 'POST',
-  body: 'a=1'})
-  .then(res => res.json())
-  .then((data) => message.channel.send(data.quote))
-  .catch(err => console.log(err)
-)
+  			method: 'POST',
+  			body: 'a=1'})
+		.then(res => res.json())
+  		.then((data) => message.channel.send(`*"${data.quote}"* - Kanye* ${links[index]}`))
+  		.catch(err => console.log(err))
 	}
 })
 
